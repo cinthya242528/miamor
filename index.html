@@ -184,6 +184,15 @@
             color: #5C5249;
             line-height: 1.75;
         }
+
+        /* Fix for fixed navbar covering section headers */
+        section[id] {
+            scroll-margin-top: 90px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
     </style>
 </head>
 <body class="smooth-scroll bg-[#F9F6F0] text-[#1F1A17] font-sans">
@@ -261,7 +270,7 @@
             </p>
             
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <button onclick="document.getElementById('catalogo').scrollIntoView({ behavior: 'smooth' })" 
+                <button onclick="scrollToSection('#catalogo')" 
                         class="premium-btn group flex items-center justify-center gap-x-3 bg-white text-[#1F1A17] px-8 py-4 rounded-full font-semibold text-base shadow-xl hover:shadow-2xl w-full sm:w-auto">
                     <span>Explorar catálogo</span>
                     <i class="fa-solid fa-arrow-right group-hover:translate-x-0.5 transition"></i>
@@ -274,7 +283,7 @@
             </div>
             
             <div class="mt-14 flex justify-center">
-                <div onclick="document.getElementById('servicios').scrollIntoView({ behavior: 'smooth' })" 
+                <div onclick="scrollToSection('#servicios')" 
                      class="flex flex-col items-center cursor-pointer group">
                     <span class="text-xs tracking-[3px] text-white/60 mb-2 group-hover:text-white/80">DESCUBRE MÁS</span>
                     <i class="fa-solid fa-chevron-down text-white/60 group-hover:text-white/80 transition"></i>
@@ -1033,6 +1042,37 @@
         }
         
         // Navbar scroll behavior
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            if (mobileMenu) mobileMenu.classList.add('hidden');
+            if (mobileBtn) mobileBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+        }
+
+        function scrollToSection(selector) {
+            const target = document.querySelector(selector);
+            if (!target) return;
+
+            const navbar = document.getElementById('navbar');
+            const navHeight = navbar ? navbar.offsetHeight : 80;
+
+            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = targetPosition - navHeight - 20; // extra breathing room
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+
+            // Close mobile menu if open
+            setTimeout(() => {
+                const mobileMenu = document.getElementById('mobile-menu');
+                if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                    closeMobileMenu();
+                }
+            }, 50);
+        }
+
         function initNavbar() {
             const navbar = document.getElementById('navbar');
             
@@ -1048,26 +1088,18 @@
             const mobileBtn = document.getElementById('mobile-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
             
-            mobileBtn.addEventListener('click', () => {
-                if (mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.remove('hidden');
-                    mobileBtn.innerHTML = '<i class="fa-solid fa-times"></i>';
-                } else {
-                    closeMobileMenu();
-                }
-            });
+            if (mobileBtn) {
+                mobileBtn.addEventListener('click', () => {
+                    if (mobileMenu && mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.remove('hidden');
+                        mobileBtn.innerHTML = '<i class="fa-solid fa-times"></i>';
+                    } else {
+                        closeMobileMenu();
+                    }
+                });
+            }
             
-            // Close mobile on link click
-            document.querySelectorAll('.mobile-link').forEach(link => {
-                link.addEventListener('click', closeMobileMenu);
-            });
-        }
-        
-        function closeMobileMenu() {
-            const mobileMenu = document.getElementById('mobile-menu');
-            const mobileBtn = document.getElementById('mobile-menu-btn');
-            mobileMenu.classList.add('hidden');
-            mobileBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+            // Note: mobile-link close + scroll is now handled centrally in initSmoothAnchors
         }
         
         // Product data
@@ -1281,16 +1313,10 @@
         function initSmoothAnchors() {
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
+                    const href = this.getAttribute('href');
+                    if (href && href.startsWith('#')) {
                         e.preventDefault();
-                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        
-                        // close mobile if open
-                        const mobileMenu = document.getElementById('mobile-menu');
-                        if (!mobileMenu.classList.contains('hidden')) {
-                            closeMobileMenu();
-                        }
+                        scrollToSection(href);
                     }
                 });
             });
