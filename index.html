@@ -3,651 +3,1358 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snake ❤️ para Cinthya</title>
-    <meta name="description" content="Juego del Snake hecho con amor para Cinthya">
+    <title>J &amp; E Menaje Perú | Alquiler de Menaje Premium para Eventos</title>
+    <meta name="description" content="Alquiler de menaje premium en Lima: vajilla de porcelana, cristalería, cubertería, mantelería y decoración de lujo para bodas, eventos corporativos, cumpleaños y celebraciones inolvidables.">
+    <meta name="keywords" content="alquiler menaje, vajilla premium, menaje para bodas Lima, cristalería eventos, alquiler vajilla Lima, menaje corporativo Perú">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="J &amp; E Menaje Perú | Menaje Premium para Eventos">
+    <meta property="og:description" content="Transformamos cada evento en una experiencia elegante con menaje de la más alta calidad. Bodas, corporativos y celebraciones en Lima y todo Perú.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1200&amp;h=630&amp;fit=crop">
+    <meta property="og:type" content="website">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&amp;family=Inter:wght@300;400;500;600&amp;display=swap');
         
         :root {
-            --bg: #0f0f23;
-            --accent: #ff2d55;
+            --gold: #B8975E;
+            --gold-dark: #8C6F3E;
+            --cream: #F9F6F0;
+            --charcoal: #1F1A17;
+            --warm-gray: #5C5249;
         }
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        .font-serif {
+            font-family: 'Playfair Display', Georgia, serif;
         }
         
-        body {
-            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
-            color: #fff;
-            font-family: "Press Start 2P", system-ui;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
+        .font-sans {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 64px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #B8975E, transparent);
+        }
+        
+        .luxury-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .luxury-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.2s ease;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: #B8975E;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .premium-btn {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
             overflow: hidden;
         }
         
-        .header {
-            text-align: center;
-            margin-bottom: 16px;
+        .premium-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 15px -3px rgb(184 151 94 / 0.3);
         }
         
-        .header h1 {
-            font-size: 2.4rem;
-            color: #ff2d55;
-            text-shadow: 0 0 10px #ff2d55,
-                        0 0 20px #ff2d55;
-            margin-bottom: 4px;
-            letter-spacing: 6px;
+        .gold-accent {
+            color: #B8975E;
         }
         
-        .header .subtitle {
-            font-size: 0.8rem;
-            color: #ff8fa3;
-            letter-spacing: 3px;
+        .elegant-shadow {
+            box-shadow: 0 10px 15px -3px rgb(31 26 23 / 0.1),
+                        0 4px 6px -4px rgb(31 26 23 / 0.1);
         }
         
-        .game-container {
-            position: relative;
-            background: #1a1a2e;
-            border: 5px solid #ff2d55;
-            border-radius: 10px;
-            box-shadow: 0 0 40px rgba(255, 45, 85, 0.35),
-                        inset 0 0 40px rgba(0, 0, 0, 0.6);
-            padding: 14px;
+        .menu-item {
+            transition: all 0.2s ease;
         }
         
-        canvas {
-            display: block;
-            background: #111122;
-            image-rendering: pixelated;
-            border: 2px solid #333355;
-            border-radius: 4px;
+        .menu-item:hover {
+            color: #B8975E;
+            transform: translateX(4px);
         }
         
-        .stats {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            margin-top: 14px;
-            padding: 0 6px;
-            font-size: 0.85rem;
+        .gallery-img {
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        .stat {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.08);
         }
         
-        .stat-label {
-            color: #666;
+        .stat-number {
+            font-variant-numeric: tabular-nums;
         }
         
-        .stat-value {
-            color: #fff;
-            font-weight: bold;
-            min-width: 44px;
-            text-align: right;
+        .nav-scrolled {
+            background-color: rgba(249, 246, 240, 0.95);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 1px 0 0 rgb(31 26 23 / 0.06);
         }
         
-        .info {
-            margin-top: 18px;
-            text-align: center;
-            font-size: 0.65rem;
-            color: #555;
-            line-height: 1.7;
+        .product-modal {
+            animation: modalEnter 0.2s ease-out forwards;
         }
         
-        .controls {
-            margin-top: 10px;
-            display: flex;
-            gap: 20px;
-            font-size: 0.65rem;
-            color: #777;
-            flex-wrap: wrap;
-            justify-content: center;
+        @keyframes modalEnter {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
         
-        .controls div {
-            display: flex;
-            align-items: center;
-            gap: 6px;
+        .hero-bg {
+            background-image: linear-gradient(rgba(31, 26, 23, 0.45), rgba(31, 26, 23, 0.55)), 
+                              url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=2000&amp;q=85');
+            background-size: cover;
+            background-position: center 30%;
         }
         
-        .key {
-            background: #222;
-            border: 1px solid #444;
-            padding: 2px 8px;
-            border-radius: 3px;
-            font-size: 0.6rem;
-            color: #aaa;
+        .smooth-scroll {
+            scroll-behavior: smooth;
         }
         
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(15, 15, 35, 0.93);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            border-radius: 4px;
-            z-index: 10;
+        .quote-form input, .quote-form select, .quote-form textarea {
+            transition: all 0.2s ease;
         }
         
-        .overlay.hidden {
-            display: none;
+        .quote-form input:focus, .quote-form select:focus, .quote-form textarea:focus {
+            border-color: #B8975E;
+            box-shadow: 0 0 0 3px rgba(184, 151, 94, 0.1);
+            outline: none;
         }
         
-        .overlay h2 {
-            font-size: 1.15rem;
-            color: #ff2d55;
-            margin-bottom: 10px;
-        }
-        
-        .overlay p {
-            font-size: 0.7rem;
-            color: #ccc;
-            margin-bottom: 18px;
-            line-height: 1.5;
-        }
-        
-        .overlay button {
-            background: #ff2d55;
-            color: white;
-            border: none;
-            padding: 14px 32px;
-            font-family: "Press Start 2P", system-ui;
+        .category-chip {
             font-size: 0.75rem;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: all 0.1s ease;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
+            padding: 2px 10px;
+            border-radius: 9999px;
+            background: #F1EDE4;
+            color: #5C5249;
         }
         
-        .overlay button:hover {
-            background: #ff4d6d;
-            transform: scale(1.05);
+        .event-badge {
+            font-size: 0.7rem;
+            letter-spacing: 0.5px;
         }
         
-        .overlay .final-score {
-            font-size: 2rem;
-            color: #fff;
-            margin: 6px 0 16px;
-            text-shadow: 0 0 10px #ff2d55;
+        .luxury-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #D1C7B5, transparent);
         }
         
-        .love {
-            position: absolute;
-            bottom: 10px;
-            right: 14px;
-            font-size: 0.65rem;
-            color: #ff2d55;
-            opacity: 0.65;
-        }
-        
-        .footer {
-            margin-top: 22px;
-            font-size: 0.6rem;
-            color: #444;
-            text-align: center;
+        .prose-elegant {
+            color: #5C5249;
+            line-height: 1.75;
         }
     </style>
 </head>
-<body>
-    <div class="header">
-        <h1>SNAKE</h1>
-        <div class="subtitle">PARA CINTHYA ❤️</div>
-    </div>
+<body class="smooth-scroll bg-[#F9F6F0] text-[#1F1A17] font-sans">
+    <!-- NAVBAR -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-[#F9F6F0]/95 backdrop-blur-lg border-b border-[#EDE6D8] transition-all">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex items-center gap-x-3">
+                    <div class="w-9 h-9 rounded-full bg-[#1F1A17] flex items-center justify-center">
+                        <span class="text-[#F9F6F0] font-serif text-2xl tracking-[-1.5px] font-semibold">JE</span>
+                    </div>
+                    <div>
+                        <div class="font-serif text-2xl tracking-[-1px] font-semibold text-[#1F1A17]">J &amp; E</div>
+                        <div class="text-[9px] text-[#B8975E] -mt-1.5 tracking-[2px] font-medium">MENAJE PERÚ</div>
+                    </div>
+                </div>
 
-    <div class="game-container">
-        <canvas id="game" width="520" height="520"></canvas>
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center gap-x-9 text-sm font-medium">
+                    <a href="#inicio" class="nav-link text-[#1F1A17] hover:text-[#B8975E]">Inicio</a>
+                    <a href="#servicios" class="nav-link text-[#1F1A17] hover:text-[#B8975E]">Servicios</a>
+                    <a href="#catalogo" class="nav-link text-[#1F1A17] hover:text-[#B8975E]">Catálogo</a>
+                    <a href="#galeria" class="nav-link text-[#1F1A17] hover:text-[#B8975E]">Galería</a>
+                    <a href="#contacto" class="nav-link text-[#1F1A17] hover:text-[#B8975E]">Contacto</a>
+                </div>
+
+                <!-- CTA Button -->
+                <div class="flex items-center gap-x-3">
+                    <button onclick="openQuoteModal()"
+                            class="hidden sm:flex items-center gap-x-2 px-5 py-2.5 text-sm font-semibold rounded-full border border-[#1F1A17] hover:bg-[#1F1A17] hover:text-white transition-all duration-200">
+                        <span>Solicitar cotización</span>
+                    </button>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-btn" class="md:hidden w-10 h-10 flex items-center justify-center text-xl" aria-label="Abrir menú">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
         
-        <div class="stats">
-            <div class="stat">
-                <span class="stat-label">SCORE</span>
-                <span id="score" class="stat-value">000</span>
-            </div>
-            <div class="stat">
-                <span class="stat-label">HIGH</span>
-                <span id="highscore" class="stat-value">000</span>
-            </div>
-            <div class="stat">
-                <span class="stat-label">SPEED</span>
-                <span id="speed" class="stat-value">01</span>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-[#EDE6D8] bg-[#F9F6F0]">
+            <div class="px-6 py-6 flex flex-col gap-y-4 text-sm font-medium">
+                <a href="#inicio" class="mobile-link py-1">Inicio</a>
+                <a href="#servicios" class="mobile-link py-1">Servicios</a>
+                <a href="#catalogo" class="mobile-link py-1">Catálogo</a>
+                <a href="#galeria" class="mobile-link py-1">Galería</a>
+                <a href="#contacto" class="mobile-link py-1">Contacto</a>
+                
+                <button onclick="openQuoteModal(); closeMobileMenu();"
+                        class="mt-2 w-full py-3 text-sm font-semibold rounded-full border border-[#1F1A17] active:bg-[#1F1A17] active:text-white">
+                    Solicitar cotización
+                </button>
             </div>
         </div>
+    </nav>
 
-        <!-- Start Screen -->
-        <div id="start-overlay" class="overlay">
-            <h2>🐍 SNAKE</h2>
-            <p>Usa las flechas o WASD<br>para moverte</p>
-            <button onclick="startGame()">JUGAR</button>
+    <!-- HERO -->
+    <section id="inicio" class="hero-bg min-h-[100dvh] flex items-center pt-20 relative">
+        <div class="max-w-5xl mx-auto px-6 text-center text-white">
+            <div class="inline-flex items-center gap-x-2 bg-white/10 backdrop-blur-md px-4 py-1 rounded-full mb-6 text-xs tracking-[2px] border border-white/20">
+                <div class="w-1.5 h-1.5 bg-[#B8975E] rounded-full animate-pulse"></div>
+                <span class="font-medium">LIMA • PERÚ • DESDE 2012</span>
+            </div>
+            
+            <h1 class="font-serif text-6xl md:text-7xl lg:text-7xl leading-[0.95] tracking-[-2.5px] mb-6">
+                Menaje premium<br>para momentos<br>que perduran.
+            </h1>
+            
+            <p class="max-w-xl mx-auto text-lg md:text-xl text-white/90 mb-10 tracking-[-0.2px]">
+                Alquiler de vajilla, cristalería, cubertería y decoración de alta gama 
+                para bodas, eventos corporativos y celebraciones inolvidables.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button onclick="document.getElementById('catalogo').scrollIntoView({ behavior: 'smooth' })" 
+                        class="premium-btn group flex items-center justify-center gap-x-3 bg-white text-[#1F1A17] px-8 py-4 rounded-full font-semibold text-base shadow-xl hover:shadow-2xl w-full sm:w-auto">
+                    <span>Explorar catálogo</span>
+                    <i class="fa-solid fa-arrow-right group-hover:translate-x-0.5 transition"></i>
+                </button>
+                
+                <button onclick="openQuoteModal()"
+                        class="premium-btn flex items-center justify-center gap-x-3 border-2 border-white/90 hover:bg-white/10 text-white px-8 py-4 rounded-full font-semibold text-base backdrop-blur transition-all w-full sm:w-auto">
+                    <span>Solicitar cotización</span>
+                </button>
+            </div>
+            
+            <div class="mt-14 flex justify-center">
+                <div onclick="document.getElementById('servicios').scrollIntoView({ behavior: 'smooth' })" 
+                     class="flex flex-col items-center cursor-pointer group">
+                    <span class="text-xs tracking-[3px] text-white/60 mb-2 group-hover:text-white/80">DESCUBRE MÁS</span>
+                    <i class="fa-solid fa-chevron-down text-white/60 group-hover:text-white/80 transition"></i>
+                </div>
+            </div>
         </div>
+        
+        <!-- Subtle bottom gradient -->
+        <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#F9F6F0] to-transparent"></div>
+    </section>
 
-        <!-- Game Over Screen -->
-        <div id="gameover-overlay" class="overlay hidden">
-            <h2>GAME OVER</h2>
-            <div class="final-score" id="final-score">000</div>
-            <p id="new-record" style="color:#ff2d55; display:none; margin-bottom:14px; font-size:0.65rem;">¡NUEVO RÉCORD!</p>
-            <button onclick="restartGame()">JUGAR DE NUEVO</button>
+    <!-- TRUST BAR -->
+    <div class="border-b border-[#EDE6D8] bg-white">
+        <div class="max-w-6xl mx-auto px-6 py-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-6 text-center">
+                <div>
+                    <div class="font-serif text-4xl tracking-tighter text-[#1F1A17]">12</div>
+                    <div class="text-sm text-[#5C5249] tracking-wide">AÑOS DE EXPERIENCIA</div>
+                </div>
+                <div>
+                    <div class="font-serif text-4xl tracking-tighter text-[#1F1A17]">850+</div>
+                    <div class="text-sm text-[#5C5249] tracking-wide">EVENTOS REALIZADOS</div>
+                </div>
+                <div>
+                    <div class="font-serif text-4xl tracking-tighter text-[#1F1A17]">100%</div>
+                    <div class="text-sm text-[#5C5249] tracking-wide">CLIENTES SATISFECHOS</div>
+                </div>
+                <div>
+                    <div class="font-serif text-4xl tracking-tighter text-[#1F1A17]">LIMA</div>
+                    <div class="text-sm text-[#5C5249] tracking-wide">Y TODO EL PERÚ</div>
+                </div>
+            </div>
         </div>
-
-        <div class="love">❤️ miamor</div>
     </div>
 
-    <div class="controls">
-        <div><span class="key">↑</span><span class="key">↓</span><span class="key">←</span><span class="key">→</span> o WASD</div>
-        <div><span class="key">P</span> Pausa</div>
-        <div><span class="key">R</span> Reiniciar</div>
+    <!-- SOBRE NOSOTROS -->
+    <section class="max-w-5xl mx-auto px-6 pt-20 pb-16">
+        <div class="grid md:grid-cols-12 gap-x-12 items-center">
+            <div class="md:col-span-7">
+                <div class="uppercase tracking-[3px] text-xs text-[#B8975E] font-semibold mb-3">NUESTRA ESENCIA</div>
+                <h2 class="font-serif text-5xl tracking-[-1.5px] leading-none mb-6">Elegancia que se siente en cada detalle.</h2>
+                
+                <div class="prose-elegant max-w-prose text-[15px]">
+                    <p class="mb-4">J &amp; E Menaje Perú nace de la pasión por transformar celebraciones en experiencias memorables. Con más de una década curando las mejores piezas de menaje nacional e internacional, nos hemos convertido en el referente de alquiler premium en Lima.</p>
+                    <p>Somos una empresa familiar que entiende que cada evento es único. Por eso cuidamos cada pieza como si fuera para nuestra propia familia: calidad impecable, higiene profesional y un servicio cálido y preciso.</p>
+                </div>
+            </div>
+            
+            <div class="md:col-span-5 mt-10 md:mt-0">
+                <div class="bg-white p-8 md:p-9 rounded-3xl elegant-shadow border border-[#EDE6D8]">
+                    <div class="space-y-6 text-sm">
+                        <div class="flex gap-4">
+                            <i class="fa-solid fa-award text-2xl text-[#B8975E] mt-0.5"></i>
+                            <div>
+                                <div class="font-semibold">Curaduría propia</div>
+                                <div class="text-[#5C5249]">Seleccionamos solo piezas de alta gama con acabados excepcionales.</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <i class="fa-solid fa-truck text-2xl text-[#B8975E] mt-0.5"></i>
+                            <div>
+                                <div class="font-semibold">Servicio integral</div>
+                                <div class="text-[#5C5249]">Entrega, montaje profesional y retiro incluidos en todos nuestros paquetes.</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <i class="fa-solid fa-handshake text-2xl text-[#B8975E] mt-0.5"></i>
+                            <div>
+                                <div class="font-semibold">Atención personalizada</div>
+                                <div class="text-[#5C5249]">Un asesor dedicado desde la primera consulta hasta el día del evento.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section id="servicios" class="bg-white border-y border-[#EDE6D8]">
+        <div class="max-w-7xl mx-auto px-6 py-20">
+            <div class="text-center mb-12">
+                <div class="text-[#B8975E] tracking-[3px] text-xs font-semibold mb-2">PARA CADA MOMENTO ESPECIAL</div>
+                <h2 class="font-serif text-5xl tracking-[-1.5px]">Servicios que elevan tu evento</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Servicio 1 -->
+                <div class="luxury-card bg-[#F9F6F0] rounded-3xl p-8 group border border-[#EDE6D8]">
+                    <div class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center mb-6 border border-[#EDE6D8]">
+                        <i class="fa-solid fa-heart text-[#B8975E] text-2xl"></i>
+                    </div>
+                    <h3 class="font-serif text-3xl tracking-[-1px] mb-3">Bodas y Matrimonios</h3>
+                    <p class="text-[#5C5249] mb-5 text-[15px]">Sets completos para ceremonias civiles, religiosas y recepciones. Estilos clásico, moderno, rústico y boho.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="category-chip">150+ bodas</span>
+                        <span class="category-chip">Paquetes full</span>
+                    </div>
+                </div>
+                
+                <div class="luxury-card bg-[#F9F6F0] rounded-3xl p-8 group border border-[#EDE6D8]">
+                    <div class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center mb-6 border border-[#EDE6D8]">
+                        <i class="fa-solid fa-briefcase text-[#B8975E] text-2xl"></i>
+                    </div>
+                    <h3 class="font-serif text-3xl tracking-[-1px] mb-3">Eventos Corporativos</h3>
+                    <p class="text-[#5C5249] mb-5 text-[15px]">Almuerzos ejecutivos, lanzamientos de producto, cenas de fin de año y convenciones. Imagen impecable para tu marca.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="category-chip">Empresas top</span>
+                        <span class="category-chip">Facturación</span>
+                    </div>
+                </div>
+                
+                <div class="luxury-card bg-[#F9F6F0] rounded-3xl p-8 group border border-[#EDE6D8]">
+                    <div class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center mb-6 border border-[#EDE6D8]">
+                        <i class="fa-solid fa-cake-candles text-[#B8975E] text-2xl"></i>
+                    </div>
+                    <h3 class="font-serif text-3xl tracking-[-1px] mb-3">Cumpleaños y Celebraciones</h3>
+                    <p class="text-[#5C5249] mb-5 text-[15px]">Desde fiestas íntimas hasta celebraciones de 200 invitados. Diseñamos el montaje perfecto para cada edad y estilo.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="category-chip">Personalizado</span>
+                        <span class="category-chip">Temáticos</span>
+                    </div>
+                </div>
+                
+                <div class="luxury-card bg-[#F9F6F0] rounded-3xl p-8 group border border-[#EDE6D8]">
+                    <div class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center mb-6 border border-[#EDE6D8]">
+                        <i class="fa-solid fa-users text-[#B8975E] text-2xl"></i>
+                    </div>
+                    <h3 class="font-serif text-3xl tracking-[-1px] mb-3">Reuniones Familiares</h3>
+                    <p class="text-[#5C5249] mb-5 text-[15px]">Bautizos, primeras comuniones, aniversarios y almuerzos dominicales. Calidez y elegancia para los momentos en familia.</p>
+                </div>
+                
+                <div class="luxury-card bg-[#F9F6F0] rounded-3xl p-8 group border border-[#EDE6D8]">
+                    <div class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center mb-6 border border-[#EDE6D8]">
+                        <i class="fa-solid fa-champagne-glasses text-[#B8975E] text-2xl"></i>
+                    </div>
+                    <h3 class="font-serif text-3xl tracking-[-1px] mb-3">Eventos Especiales</h3>
+                    <p class="text-[#5C5249] mb-5 text-[15px]">Lanzamientos de marca, cenas de gala, activaciones, graduaciones y cualquier ocasión que merezca lo mejor.</p>
+                </div>
+                
+                <div class="luxury-card bg-[#F9F6F0] rounded-3xl p-8 group border border-[#EDE6D8]">
+                    <div class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center mb-6 border border-[#EDE6D8]">
+                        <i class="fa-solid fa-globe text-[#B8975E] text-2xl"></i>
+                    </div>
+                    <h3 class="font-serif text-3xl tracking-[-1px] mb-3">Eventos en Provincia</h3>
+                    <p class="text-[#5C5249] mb-5 text-[15px]">Llevamos nuestro servicio a las principales ciudades del Perú. Coordinamos logística completa y montaje en destino.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATÁLOGO -->
+    <section id="catalogo" class="max-w-7xl mx-auto px-6 py-20">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-y-4 mb-10">
+            <div>
+                <div class="text-[#B8975E] text-xs tracking-[3px] font-semibold mb-2">PIEZAS DE EXCEPCIÓN</div>
+                <h2 class="font-serif text-5xl tracking-[-1.5px]">Nuestro catálogo</h2>
+            </div>
+            <p class="max-w-md text-[#5C5249]">Cada pieza es seleccionada por su calidad, belleza y durabilidad. Combinamos clásicos atemporales con tendencias actuales.</p>
+        </div>
+        
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Producto 1 -->
+            <div onclick="openProductModal(0)" class="luxury-card group cursor-pointer bg-white border border-[#EDE6D8] rounded-3xl overflow-hidden">
+                <div class="h-52 overflow-hidden bg-[#F1EDE4]">
+                    <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=800&amp;q=80" 
+                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Vajilla de porcelana premium">
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-semibold text-lg tracking-tight">Vajilla de Porcelana</span>
+                    </div>
+                    <p class="text-sm text-[#5C5249] mb-4 line-clamp-2">Sets de 18 y 24 piezas en blanco marfil, dorado y tonalidades contemporáneas. Ideales para 6 a 300 comensales.</p>
+                    <div class="flex items-center justify-between text-sm">
+                        <span class="text-[#B8975E] font-medium">Desde S/ 18 por cubierto</span>
+                        <span class="text-xs px-3 py-1 bg-[#F9F6F0] rounded-full">Ver detalles →</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Producto 2 -->
+            <div onclick="openProductModal(1)" class="luxury-card group cursor-pointer bg-white border border-[#EDE6D8] rounded-3xl overflow-hidden">
+                <div class="h-52 overflow-hidden bg-[#F1EDE4]">
+                    <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=800&amp;q=80" 
+                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Cristalería y copas de lujo">
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-semibold text-lg tracking-tight">Cristalería Premium</span>
+                    </div>
+                    <p class="text-sm text-[#5C5249] mb-4 line-clamp-2">Copas de vino, agua, champagne y cóctel en cristal soplado y vidrio de alta resistencia. Colecciones clásicas y contemporáneas.</p>
+                    <div class="flex items-center justify-between text-sm">
+                        <span class="text-[#B8975E] font-medium">Desde S/ 6.50 por unidad</span>
+                        <span class="text-xs px-3 py-1 bg-[#F9F6F0] rounded-full">Ver detalles →</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Producto 3 -->
+            <div onclick="openProductModal(2)" class="luxury-card group cursor-pointer bg-white border border-[#EDE6D8] rounded-3xl overflow-hidden">
+                <div class="h-52 overflow-hidden bg-[#F1EDE4]">
+                    <img src="https://images.unsplash.com/photo-1590736969955-71cc94901144?w=800&amp;q=80" 
+                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Cubertería de acero inoxidable y dorado">
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-semibold text-lg tracking-tight">Cubertería de Lujo</span>
+                    </div>
+                    <p class="text-sm text-[#5C5249] mb-4 line-clamp-2">Acero inoxidable 18/10 y acabados en oro mate o brillo. Sets de 5 y 7 piezas. Cucharas de postre y servicio incluidas.</p>
+                    <div class="flex items-center justify-between text-sm">
+                        <span class="text-[#B8975E] font-medium">Desde S/ 9 por cubierto</span>
+                        <span class="text-xs px-3 py-1 bg-[#F9F6F0] rounded-full">Ver detalles →</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Producto 4 -->
+            <div onclick="openProductModal(3)" class="luxury-card group cursor-pointer bg-white border border-[#EDE6D8] rounded-3xl overflow-hidden">
+                <div class="h-52 overflow-hidden bg-[#F1EDE4]">
+                    <img src="https://images.unsplash.com/photo-1617806118233-18e1de247200?w=800&amp;q=80" 
+                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Mantelería de lino y algodón premium">
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-semibold text-lg tracking-tight">Mantelería &amp; Textiles</span>
+                    </div>
+                    <p class="text-sm text-[#5C5249] mb-4 line-clamp-2">Manteles rectangulares y redondos en lino natural, algodón egipcio y mezclas premium. Servilletas a juego y caminos de mesa.</p>
+                    <div class="flex items-center justify-between text-sm">
+                        <span class="text-[#B8975E] font-medium">Desde S/ 28 por mantel</span>
+                        <span class="text-xs px-3 py-1 bg-[#F9F6F0] rounded-full">Ver detalles →</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Producto 5 -->
+            <div onclick="openProductModal(4)" class="luxury-card group cursor-pointer bg-white border border-[#EDE6D8] rounded-3xl overflow-hidden">
+                <div class="h-52 overflow-hidden bg-[#F1EDE4]">
+                    <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=800&amp;q=80" 
+                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Centros de mesa y decoración floral">
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-semibold text-lg tracking-tight">Decoración &amp; Centros</span>
+                    </div>
+                    <p class="text-sm text-[#5C5249] mb-4 line-clamp-2">Arreglos florales, candelabros, jarrones, espejos y piezas decorativas. Creamos la ambientación que tu evento necesita.</p>
+                    <div class="flex items-center justify-between text-sm">
+                        <span class="text-[#B8975E] font-medium">Personalizado</span>
+                        <span class="text-xs px-3 py-1 bg-[#F9F6F0] rounded-full">Ver detalles →</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Producto 6 -->
+            <div onclick="openProductModal(5)" class="luxury-card group cursor-pointer bg-white border border-[#EDE6D8] rounded-3xl overflow-hidden">
+                <div class="h-52 overflow-hidden bg-[#F1EDE4]">
+                    <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&amp;q=80" 
+                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Samovares y equipo para buffet">
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-semibold text-lg tracking-tight">Buffet &amp; Servicio</span>
+                    </div>
+                    <p class="text-sm text-[#5C5249] mb-4 line-clamp-2">Samovares, porta-pirex, bandejas, calentadores y todo el equipo necesario para servicio de buffet elegante y funcional.</p>
+                    <div class="flex items-center justify-between text-sm">
+                        <span class="text-[#B8975E] font-medium">Paquetes completos</span>
+                        <span class="text-xs px-3 py-1 bg-[#F9F6F0] rounded-full">Ver detalles →</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Producto 7 -->
+            <div onclick="openProductModal(6)" class="luxury-card group cursor-pointer bg-white border border-[#EDE6D8] rounded-3xl overflow-hidden">
+                <div class="h-52 overflow-hidden bg-[#F1EDE4]">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&amp;q=80" 
+                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Mobiliario complementario sillas y mesas">
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-semibold text-lg tracking-tight">Mobiliario</span>
+                    </div>
+                    <p class="text-sm text-[#5C5249] mb-4 line-clamp-2">Mesas rectangulares y redondas, sillas Tiffany, sillas Chiavari, lounge y piezas especiales para ambientación completa.</p>
+                    <div class="flex items-center justify-between text-sm">
+                        <span class="text-[#B8975E] font-medium">Bodas y corporativos</span>
+                        <span class="text-xs px-3 py-1 bg-[#F9F6F0] rounded-full">Ver detalles →</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Producto 8 -->
+            <div onclick="openProductModal(7)" class="luxury-card group cursor-pointer bg-white border border-[#EDE6D8] rounded-3xl overflow-hidden">
+                <div class="h-52 overflow-hidden bg-[#F1EDE4]">
+                    <img src="https://images.unsplash.com/photo-1555244162-803834f70033?w=800&amp;q=80" 
+                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Paquetes completos por número de invitados">
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-semibold text-lg tracking-tight">Paquetes Completos</span>
+                    </div>
+                    <p class="text-sm text-[#5C5249] mb-4 line-clamp-2">Soluciones llave en mano para 30, 50, 80, 120 y 200+ invitados. Todo incluido con montaje y retiro profesional.</p>
+                    <div class="flex items-center justify-between text-sm">
+                        <span class="text-[#B8975E] font-medium">El más elegido</span>
+                        <span class="text-xs px-3 py-1 bg-[#F9F6F0] rounded-full">Ver detalles →</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-10">
+            <button onclick="openQuoteModal()" 
+                    class="inline-flex items-center gap-x-2 text-sm font-semibold border-b border-[#1F1A17] pb-0.5 hover:text-[#B8975E] hover:border-[#B8975E]">
+                ¿No encuentras lo que buscas? Cuéntanos tu visión <i class="fa-solid fa-arrow-right ml-1"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- GALERÍA -->
+    <section id="galeria" class="bg-[#1F1A17] text-white py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-y-3">
+                <div>
+                    <div class="uppercase tracking-[3px] text-[#B8975E] text-xs font-semibold mb-2">MOMENTOS QUE CREAMOS</div>
+                    <h2 class="font-serif text-5xl tracking-[-1.5px]">Galería de eventos</h2>
+                </div>
+                <p class="max-w-sm text-white/70">Cada imagen cuenta una historia de elegancia, detalles cuidados y celebraciones inolvidables.</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+                <div class="gallery-item group relative overflow-hidden rounded-2xl aspect-[4/3] bg-neutral-800">
+                    <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=800&amp;q=80" class="gallery-img w-full h-full object-cover" alt="Boda elegante en Lima">
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-5">
+                        <div class="text-xs event-badge tracking-widest text-[#B8975E]">BODA • MIRAFLORES</div>
+                        <div class="text-white font-medium text-lg tracking-tight">Claudia &amp; Sebastián</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item group relative overflow-hidden rounded-2xl aspect-[4/3] bg-neutral-800">
+                    <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&amp;q=80" class="gallery-img w-full h-full object-cover" alt="Cena corporativa premium">
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-5">
+                        <div class="text-xs event-badge tracking-widest text-[#B8975E]">CORPORATIVO • SAN ISIDRO</div>
+                        <div class="text-white font-medium text-lg tracking-tight">Lanzamiento Banco Nacional</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item group relative overflow-hidden rounded-2xl aspect-[4/3] bg-neutral-800">
+                    <img src="https://images.unsplash.com/photo-1478146896981-b80fe463b330?w=800&amp;q=80" class="gallery-img w-full h-full object-cover" alt="Recepción de boda al atardecer">
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-5">
+                        <div class="text-xs event-badge tracking-widest text-[#B8975E]">MATRIMONIO • BARRANCO</div>
+                        <div class="text-white font-medium text-lg tracking-tight">Valeria &amp; Martín — 180 invitados</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item group relative overflow-hidden rounded-2xl aspect-[4/3] bg-neutral-800">
+                    <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=800&amp;q=80" class="gallery-img w-full h-full object-cover" alt="Mesa principal de boda con candelabros">
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-5">
+                        <div class="text-xs event-badge tracking-widest text-[#B8975E]">BODA • CUSCO</div>
+                        <div class="text-white font-medium text-lg tracking-tight">Ana &amp; Diego — Hacienda</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item group relative overflow-hidden rounded-2xl aspect-[4/3] bg-neutral-800">
+                    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&amp;q=80" class="gallery-img w-full h-full object-cover" alt="Mesa de evento corporativo elegante">
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-5">
+                        <div class="text-xs event-badge tracking-widest text-[#B8975E]">CENA DE GALA • MIRAFLORES</div>
+                        <div class="text-white font-medium text-lg tracking-tight">Premios Empresa 2024</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item group relative overflow-hidden rounded-2xl aspect-[4/3] bg-neutral-800">
+                    <img src="https://images.unsplash.com/photo-1555244162-803834f70033?w=800&amp;q=80" class="gallery-img w-full h-full object-cover" alt="Buffet elegante con samovares">
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-5">
+                        <div class="text-xs event-badge tracking-widest text-[#B8975E]">CUMPLEAÑOS 50 • SURCO</div>
+                        <div class="text-white font-medium text-lg tracking-tight">Fiesta de María Elena</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item group relative overflow-hidden rounded-2xl aspect-[4/3] bg-neutral-800">
+                    <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&amp;q=80" class="gallery-img w-full h-full object-cover" alt="Mesa familiar con decoración cálida">
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-5">
+                        <div class="text-xs event-badge tracking-widest text-[#B8975E]">REUNIÓN FAMILIAR • LIMA</div>
+                        <div class="text-white font-medium text-lg tracking-tight">Bautizo de Lucía</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item group relative overflow-hidden rounded-2xl aspect-[4/3] bg-neutral-800">
+                    <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&amp;q=80" class="gallery-img w-full h-full object-cover" alt="Montaje de evento al aire libre">
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-5">
+                        <div class="text-xs event-badge tracking-widest text-[#B8975E]">EVENTO CORPORATIVO • AREQUIPA</div>
+                        <div class="text-white font-medium text-lg tracking-tight">Convención de Ejecutivos</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-10">
+                <button onclick="openQuoteModal()" 
+                        class="text-sm border border-white/40 hover:bg-white/5 transition px-8 py-3 rounded-full font-medium">
+                    Quiero un montaje como estos
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- EL PROCESO -->
+    <section class="max-w-6xl mx-auto px-6 py-20">
+        <div class="text-center mb-12">
+            <div class="text-[#B8975E] tracking-[3px] text-xs font-semibold mb-2">TRANQUILIDAD TOTAL</div>
+            <h2 class="font-serif text-5xl tracking-[-1.5px]">Cómo trabajamos</h2>
+        </div>
+        
+        <div class="grid md:grid-cols-4 gap-6">
+            <div class="text-center px-4">
+                <div class="mx-auto w-14 h-14 rounded-full bg-[#1F1A17] text-white flex items-center justify-center mb-5 text-xl font-serif">01</div>
+                <div class="font-semibold mb-2 tracking-tight">Consulta y Visita</div>
+                <p class="text-sm text-[#5C5249]">Nos reunimos (presencial o virtual) para entender el estilo, número de invitados y detalles de tu evento.</p>
+            </div>
+            <div class="text-center px-4">
+                <div class="mx-auto w-14 h-14 rounded-full bg-[#1F1A17] text-white flex items-center justify-center mb-5 text-xl font-serif">02</div>
+                <div class="font-semibold mb-2 tracking-tight">Propuesta a Medida</div>
+                <p class="text-sm text-[#5C5249]">Recibes una cotización detallada con opciones de sets, colores y paquetes adaptados a tu presupuesto y visión.</p>
+            </div>
+            <div class="text-center px-4">
+                <div class="mx-auto w-14 h-14 rounded-full bg-[#1F1A17] text-white flex items-center justify-center mb-5 text-xl font-serif">03</div>
+                <div class="font-semibold mb-2 tracking-tight">Entrega y Montaje</div>
+                <p class="text-sm text-[#5C5249]">Llevamos todo a tu venue. Nuestro equipo monta con precisión según el diseño acordado el día anterior o el mismo día.</p>
+            </div>
+            <div class="text-center px-4">
+                <div class="mx-auto w-14 h-14 rounded-full bg-[#1F1A17] text-white flex items-center justify-center mb-5 text-xl font-serif">04</div>
+                <div class="font-semibold mb-2 tracking-tight">Retiro Impecable</div>
+                <p class="text-sm text-[#5C5249]">Al finalizar, recogemos todo sin que tengas que preocuparte por nada. Tu evento termina tan perfecto como empezó.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIOS -->
+    <section class="bg-[#F9F6F0] border-y border-[#EDE6D8] py-20">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <div class="text-[#B8975E] tracking-[3px] text-xs font-semibold mb-2">LO QUE DICEN NUESTROS CLIENTES</div>
+                <h2 class="font-serif text-5xl tracking-[-1.5px]">Historias reales</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white p-8 rounded-3xl border border-[#EDE6D8]">
+                    <div class="flex gap-1 text-[#B8975E] mb-5">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="italic text-[15px] leading-relaxed mb-6">"El menaje que eligieron para nuestra boda fue espectacular. Cada detalle estaba pensado. Los invitados no paraban de preguntar dónde habíamos alquilado todo. Servicio impecable de principio a fin."</p>
+                    <div>
+                        <div class="font-semibold">Valeria &amp; Martín P.</div>
+                        <div class="text-xs text-[#5C5249]">Boda • 180 invitados • Barranco, 2024</div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-8 rounded-3xl border border-[#EDE6D8]">
+                    <div class="flex gap-1 text-[#B8975E] mb-5">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                    </div>
+                    <p class="italic text-[15px] leading-relaxed mb-6">"Organizamos una cena corporativa para 120 ejecutivos. Necesitábamos algo elegante pero sobrio. J&amp;E entregó exactamente lo que pedimos, a tiempo y con una presentación impecable. Volveremos a contratarlos sin dudarlo."</p>
+                    <div>
+                        <div class="font-semibold">Carolina Mendoza</div>
+                        <div class="text-xs text-[#5C5249]">Directora de Marketing • Empresa multinacional</div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-8 rounded-3xl border border-[#EDE6D8]">
+                    <div class="flex gap-1 text-[#B8975E] mb-5">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="italic text-[15px] leading-relaxed mb-6">"Para el bautizo de mi hija queríamos algo especial pero cálido. El equipo nos ayudó a elegir vajilla y mantelería que combinó perfecto con la decoración. Todo llegó y se fue en el horario exacto. Muy recomendados."</p>
+                    <div>
+                        <div class="font-semibold">Gabriela R. de los Ríos</div>
+                        <div class="text-xs text-[#5C5249]">Bautizo familiar • Surco, 2024</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA FINAL + CONTACTO -->
+    <section id="contacto" class="max-w-5xl mx-auto px-6 py-20">
+        <div class="grid lg:grid-cols-2 gap-x-16 gap-y-12 items-center">
+            <!-- Left content -->
+            <div>
+                <div class="uppercase text-xs tracking-[3px] text-[#B8975E] font-semibold mb-3">HABLEMOS DE TU EVENTO</div>
+                <h2 class="font-serif text-6xl tracking-[-2px] leading-[0.95] mb-6">Convirtamos tu visión en una celebración inolvidable.</h2>
+                
+                <div class="space-y-5 text-[#5C5249]">
+                    <div class="flex gap-4">
+                        <i class="fa-solid fa-phone w-5 mt-1 text-[#B8975E]"></i>
+                        <div>
+                            <div class="font-medium text-[#1F1A17]">+51 922 605 137</div>
+                            <div class="text-sm">WhatsApp y llamadas • Lunes a sábado 9:00 - 19:00</div>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <i class="fa-solid fa-envelope w-5 mt-1 text-[#B8975E]"></i>
+                        <div>
+                            <div class="font-medium text-[#1F1A17]">hola@jemenajeperu.com</div>
+                            <div class="text-sm">Respondemos en menos de 24 horas</div>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <i class="fa-solid fa-location-dot w-5 mt-1 text-[#B8975E]"></i>
+                        <div>
+                            <div class="font-medium text-[#1F1A17]">Lima, Perú</div>
+                            <div class="text-sm">Atendemos en Lima Metropolitana y principales ciudades del país</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-8 flex gap-3">
+                    <a href="https://wa.me/51922605137?text=Hola%20J%26E%20Menaje%2C%20me%20interesa%20cotizar%20un%20evento" target="_blank"
+                       class="inline-flex items-center gap-x-2.5 bg-[#25D366] hover:bg-[#128C7E] transition text-white text-sm font-semibold px-6 py-3 rounded-full">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                        <span>Escribir por WhatsApp</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Form -->
+            <div class="bg-white border border-[#EDE6D8] rounded-3xl p-8 md:p-9">
+                <h3 class="font-serif text-3xl tracking-tight mb-6">Solicita tu cotización</h3>
+                
+                <form id="quote-form" onsubmit="handleQuoteSubmit(event)" class="quote-form space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs tracking-widest font-medium text-[#5C5249] mb-1.5">NOMBRE COMPLETO</label>
+                            <input type="text" id="nombre" required class="w-full border border-[#D9D0C3] rounded-2xl px-4 py-3 text-sm focus:border-[#B8975E]" placeholder="María González">
+                        </div>
+                        <div>
+                            <label class="block text-xs tracking-widest font-medium text-[#5C5249] mb-1.5">TELÉFONO / WHATSAPP</label>
+                            <input type="tel" id="telefono" required class="w-full border border-[#D9D0C3] rounded-2xl px-4 py-3 text-sm focus:border-[#B8975E]" placeholder="+51 999 888 777">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs tracking-widest font-medium text-[#5C5249] mb-1.5">CORREO ELECTRÓNICO</label>
+                        <input type="email" id="email" required class="w-full border border-[#D9D0C3] rounded-2xl px-4 py-3 text-sm focus:border-[#B8975E]" placeholder="tu@email.com">
+                    </div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs tracking-widest font-medium text-[#5C5249] mb-1.5">TIPO DE EVENTO</label>
+                            <select id="tipo-evento" required class="w-full border border-[#D9D0C3] rounded-2xl px-4 py-3 text-sm bg-white focus:border-[#B8975E]">
+                                <option value="">Seleccionar...</option>
+                                <option>Boda / Matrimonio</option>
+                                <option>Evento Corporativo</option>
+                                <option>Cumpleaños / Aniversario</option>
+                                <option>Reunión Familiar</option>
+                                <option>Otro</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs tracking-widest font-medium text-[#5C5249] mb-1.5">FECHA APROXIMADA</label>
+                            <input type="text" id="fecha" class="w-full border border-[#D9D0C3] rounded-2xl px-4 py-3 text-sm focus:border-[#B8975E]" placeholder="15 de marzo 2025">
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs tracking-widest font-medium text-[#5C5249] mb-1.5">N° DE INVITADOS</label>
+                            <input type="number" id="invitados" class="w-full border border-[#D9D0C3] rounded-2xl px-4 py-3 text-sm focus:border-[#B8975E]" placeholder="80">
+                        </div>
+                        <div>
+                            <label class="block text-xs tracking-widest font-medium text-[#5C5249] mb-1.5">PRESUPUESTO APROX.</label>
+                            <select id="presupuesto" class="w-full border border-[#D9D0C3] rounded-2xl px-4 py-3 text-sm bg-white focus:border-[#B8975E]">
+                                <option value="">Seleccionar...</option>
+                                <option>Menos de S/ 3,000</option>
+                                <option>S/ 3,000 - S/ 6,000</option>
+                                <option>S/ 6,000 - S/ 12,000</option>
+                                <option>Más de S/ 12,000</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs tracking-widest font-medium text-[#5C5249] mb-1.5">CUÉNTANOS MÁS SOBRE TU EVENTO</label>
+                        <textarea id="mensaje" rows="3" class="w-full border border-[#D9D0C3] rounded-3xl px-4 py-3 text-sm resize-y focus:border-[#B8975E]" placeholder="Estilo que buscas, venue, colores, requerimientos especiales..."></textarea>
+                    </div>
+                    
+                    <button type="submit" 
+                            class="w-full mt-2 bg-[#1F1A17] hover:bg-black active:scale-[0.985] transition text-white font-semibold py-4 rounded-2xl text-sm tracking-wider">
+                        ENVIAR SOLICITUD DE COTIZACIÓN
+                    </button>
+                    
+                    <p class="text-center text-[10px] text-[#8A7E70]">Te contactaremos en menos de 24 horas hábiles.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-[#EDE6D8] bg-white">
+        <div class="max-w-7xl mx-auto px-6 py-14 text-sm">
+            <div class="flex flex-col md:flex-row md:justify-between gap-y-10">
+                <div>
+                    <div class="flex items-center gap-x-3 mb-3">
+                        <div class="w-8 h-8 rounded-full bg-[#1F1A17] flex items-center justify-center">
+                            <span class="text-[#F9F6F0] font-serif text-xl tracking-[-1.5px]">JE</span>
+                        </div>
+                        <span class="font-serif text-xl tracking-tight">J &amp; E Menaje Perú</span>
+                    </div>
+                    <p class="text-[#5C5249] max-w-[260px]">Alquiler premium de menaje y decoración para eventos inolvidables en Perú.</p>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-x-12 gap-y-8 text-sm">
+                    <div>
+                        <div class="font-medium text-xs tracking-[1.5px] text-[#B8975E] mb-3">EMPRESA</div>
+                        <div class="space-y-1.5 text-[#5C5249]">
+                            <div>Sobre nosotros</div>
+                            <div>Nuestro proceso</div>
+                            <div>Catálogo completo</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="font-medium text-xs tracking-[1.5px] text-[#B8975E] mb-3">SERVICIOS</div>
+                        <div class="space-y-1.5 text-[#5C5249]">
+                            <div>Bodas</div>
+                            <div>Eventos corporativos</div>
+                            <div>Celebraciones privadas</div>
+                            <div>Eventos en provincia</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="font-medium text-xs tracking-[1.5px] text-[#B8975E] mb-3">CONTACTO</div>
+                        <div class="space-y-1.5 text-[#5C5249]">
+                            <div>+51 922 605 137</div>
+                            <div>hola@jemenajeperu.com</div>
+                            <div>Lima, Perú</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="luxury-divider my-10"></div>
+            
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-y-4 text-xs text-[#8A7E70]">
+                <div>© 2026 J &amp; E Menaje Perú. Todos los derechos reservados.</div>
+                <div class="flex gap-x-5">
+                    <span class="hover:text-[#1F1A17] cursor-pointer">Aviso legal</span>
+                    <span class="hover:text-[#1F1A17] cursor-pointer">Términos y condiciones</span>
+                    <span class="hover:text-[#1F1A17] cursor-pointer">Política de privacidad</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- FLOATING WHATSAPP -->
+    <a href="https://wa.me/51922605137?text=Hola%20J%26E%20Menaje%2C%20quisiera%20informaci%C3%B3n%20sobre%20alquiler%20de%20menaje%20para%20un%20evento" 
+       target="_blank"
+       class="fixed bottom-6 right-6 z-50 bg-[#25D366] hover:bg-[#128C7E] shadow-xl text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl transition-all active:scale-95">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- PRODUCT MODAL -->
+    <div id="product-modal" onclick="if (event.target.id === 'product-modal') closeProductModal()" class="hidden fixed inset-0 z-[70] bg-black/60 flex items-center justify-center p-4">
+        <div onclick="event.stopImmediatePropagation()" class="product-modal bg-white w-full max-w-2xl rounded-3xl overflow-hidden">
+            <div class="relative">
+                <button onclick="closeProductModal()" class="absolute top-4 right-4 z-10 w-9 h-9 bg-white/90 hover:bg-white rounded-full flex items-center justify-center text-xl text-[#1F1A17]">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+                <div id="modal-image" class="h-72 w-full bg-cover bg-center"></div>
+            </div>
+            
+            <div class="p-8 md:p-9">
+                <div id="modal-category" class="inline-block text-xs tracking-widest px-4 py-1 bg-[#F1EDE4] text-[#5C5249] rounded-full mb-3"></div>
+                <h3 id="modal-title" class="font-serif text-4xl tracking-[-1px] mb-2"></h3>
+                <div id="modal-price" class="text-[#B8975E] font-medium text-lg mb-5"></div>
+                
+                <div id="modal-description" class="prose-elegant text-[15px] leading-relaxed mb-6"></div>
+                
+                <div class="border-t border-[#EDE6D8] pt-6">
+                    <div class="text-sm font-medium mb-3 text-[#1F1A17]">Incluye típicamente:</div>
+                    <ul id="modal-includes" class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1.5 text-sm text-[#5C5249]"></ul>
+                </div>
+                
+                <div class="mt-8 flex flex-col sm:flex-row gap-3">
+                    <button onclick="addToQuoteFromModal()" 
+                            class="flex-1 py-4 rounded-2xl border border-[#1F1A17] hover:bg-[#1F1A17] hover:text-white font-semibold text-sm transition">
+                        AÑADIR A MI COTIZACIÓN
+                    </button>
+                    <button onclick="closeProductModal(); openQuoteModal()" 
+                            class="flex-1 py-4 rounded-2xl bg-[#1F1A17] text-white font-semibold text-sm">
+                        SOLICITAR COTIZACIÓN COMPLETA
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="info">
-        Come las 🍎 • Creces y vas más rápido • No choques
+    <!-- QUOTE MODAL -->
+    <div id="quote-modal" onclick="if (event.target.id === 'quote-modal') closeQuoteModal()" class="hidden fixed inset-0 z-[80] bg-black/70 flex items-center justify-center p-4">
+        <div onclick="event.stopImmediatePropagation()" class="product-modal bg-white w-full max-w-lg rounded-3xl overflow-hidden">
+            <div class="px-8 pt-8 pb-6">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <div class="text-[#B8975E] text-xs tracking-[2.5px] font-semibold">RESERVA TU FECHA</div>
+                        <h3 class="font-serif text-3xl tracking-tight">Solicitar cotización</h3>
+                    </div>
+                    <button onclick="closeQuoteModal()" class="text-2xl leading-none mt-1 text-[#8A7E70]">×</button>
+                </div>
+                
+                <form id="modal-quote-form" onsubmit="handleModalQuoteSubmit(event)" class="mt-6 space-y-4 quote-form">
+                    <div>
+                        <input type="text" id="m-nombre" required placeholder="Nombre completo" 
+                               class="w-full border border-[#D9D0C3] rounded-2xl px-5 py-3.5 text-sm">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="tel" id="m-telefono" required placeholder="Teléfono / WhatsApp" 
+                               class="w-full border border-[#D9D0C3] rounded-2xl px-5 py-3.5 text-sm">
+                        <input type="email" id="m-email" required placeholder="Correo" 
+                               class="w-full border border-[#D9D0C3] rounded-2xl px-5 py-3.5 text-sm">
+                    </div>
+                    <div>
+                        <select id="m-tipo" required class="w-full border border-[#D9D0C3] rounded-2xl px-5 py-3.5 text-sm bg-white">
+                            <option value="">Tipo de evento</option>
+                            <option>Boda / Matrimonio</option>
+                            <option>Evento Corporativo</option>
+                            <option>Cumpleaños / Aniversario</option>
+                            <option>Reunión Familiar</option>
+                            <option>Otro</option>
+                        </select>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="text" id="m-fecha" placeholder="Fecha aproximada" class="w-full border border-[#D9D0C3] rounded-2xl px-5 py-3.5 text-sm">
+                        <input type="number" id="m-invitados" placeholder="N° invitados" class="w-full border border-[#D9D0C3] rounded-2xl px-5 py-3.5 text-sm">
+                    </div>
+                    <textarea id="m-mensaje" rows="2" placeholder="Detalles adicionales o estilo que buscas..." 
+                              class="w-full border border-[#D9D0C3] rounded-3xl px-5 py-3.5 text-sm"></textarea>
+                    
+                    <button type="submit" 
+                            class="w-full py-4 mt-1 rounded-2xl bg-[#1F1A17] hover:bg-black text-white font-semibold text-sm tracking-wider transition">
+                        ENVIAR Y RECIBIR COTIZACIÓN
+                    </button>
+                </form>
+                
+                <div class="text-center mt-4">
+                    <a href="https://wa.me/51922605137" target="_blank" class="text-xs text-[#25D366] hover:underline flex items-center gap-x-1 justify-center">
+                        <i class="fa-brands fa-whatsapp"></i> 
+                        <span>O contáctanos directamente por WhatsApp</span>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="footer">
-        hecho con ❤️ para Cinthya • abre en cualquier navegador
+    <!-- Success Toast -->
+    <div id="success-toast" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-[90] bg-[#1F1A17] text-white px-8 py-4 rounded-2xl flex items-center gap-x-3 shadow-2xl">
+        <i class="fa-solid fa-check-circle text-[#B8975E]"></i>
+        <span class="text-sm">¡Gracias! Tu solicitud fue enviada. Te contactaremos pronto.</span>
     </div>
 
     <script>
-        const canvas = document.getElementById('game');
-        const ctx = canvas.getContext('2d', { alpha: true });
+        // Tailwind script configuration
+        function initTailwind() {
+            document.documentElement.style.setProperty('--accent', '#B8975E');
+        }
         
-        const GRID_SIZE = 20;
-        const CELL_SIZE = 26;
-        const CANVAS_SIZE = GRID_SIZE * CELL_SIZE; // 520
-        
-        let snake = [];
-        let direction = { x: 1, y: 0 };
-        let nextDirection = { x: 1, y: 0 };
-        let food = { x: 0, y: 0 };
-        let score = 0;
-        let highScore = parseInt(localStorage.getItem('snakeHighScore') || '0');
-        let gameSpeed = 160; // ms
-        let isRunning = false;
-        let isPaused = false;
-        let lastMoveTime = 0;
-        
-        const scoreEl = document.getElementById('score');
-        const highscoreEl = document.getElementById('highscore');
-        const speedEl = document.getElementById('speed');
-        const startOverlay = document.getElementById('start-overlay');
-        const gameoverOverlay = document.getElementById('gameover-overlay');
-        const finalScoreEl = document.getElementById('final-score');
-        const newRecordEl = document.getElementById('new-record');
-
-        function initHighScore() {
-            highscoreEl.textContent = highScore.toString().padStart(3, '0');
-        }
-
-        function resetGame() {
-            snake = [
-                { x: 8, y: 10 },
-                { x: 7, y: 10 },
-                { x: 6, y: 10 }
-            ];
-            direction = { x: 1, y: 0 };
-            nextDirection = { x: 1, y: 0 };
-            score = 0;
-            gameSpeed = 160;
-            isPaused = false;
+        // Navbar scroll behavior
+        function initNavbar() {
+            const navbar = document.getElementById('navbar');
             
-            updateScore();
-            placeFood();
-        }
-
-        function placeFood() {
-            let newFood;
-            do {
-                newFood = {
-                    x: Math.floor(Math.random() * GRID_SIZE),
-                    y: Math.floor(Math.random() * GRID_SIZE)
-                };
-            } while (snake.some(segment => segment.x === newFood.x && segment.y === newFood.y));
-            
-            food = newFood;
-        }
-
-        function updateScore() {
-            scoreEl.textContent = score.toString().padStart(3, '0');
-            speedEl.textContent = Math.min(10, Math.floor((160 - gameSpeed) / 14) + 1).toString().padStart(2, '0');
-            
-            if (score > highScore) {
-                highscoreEl.textContent = score.toString().padStart(3, '0');
-            }
-        }
-
-        function draw() {
-            // Background
-            ctx.fillStyle = '#111122';
-            ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
-            
-            // Grid lines (subtle)
-            ctx.strokeStyle = '#1f1f35';
-            ctx.lineWidth = 1;
-            for (let i = 0; i <= GRID_SIZE; i++) {
-                ctx.beginPath();
-                ctx.moveTo(i * CELL_SIZE, 0);
-                ctx.lineTo(i * CELL_SIZE, CANVAS_SIZE);
-                ctx.stroke();
-                
-                ctx.beginPath();
-                ctx.moveTo(0, i * CELL_SIZE);
-                ctx.lineTo(CANVAS_SIZE, i * CELL_SIZE);
-                ctx.stroke();
-            }
-
-            // Draw snake
-            snake.forEach((segment, index) => {
-                const x = segment.x * CELL_SIZE;
-                const y = segment.y * CELL_SIZE;
-                
-                if (index === 0) {
-                    // Head
-                    ctx.fillStyle = '#00ff9d';
-                    ctx.fillRect(x + 1, y + 1, CELL_SIZE - 2, CELL_SIZE - 2);
-                    
-                    // Eyes
-                    ctx.fillStyle = '#0f0f23';
-                    const eyeSize = 5;
-                    const eyeOffset = 7;
-                    
-                    if (direction.x === 1) { // right
-                        ctx.fillRect(x + CELL_SIZE - eyeOffset - eyeSize, y + eyeOffset, eyeSize, eyeSize);
-                        ctx.fillRect(x + CELL_SIZE - eyeOffset - eyeSize, y + CELL_SIZE - eyeOffset - eyeSize, eyeSize, eyeSize);
-                    } else if (direction.x === -1) { // left
-                        ctx.fillRect(x + eyeOffset, y + eyeOffset, eyeSize, eyeSize);
-                        ctx.fillRect(x + eyeOffset, y + CELL_SIZE - eyeOffset - eyeSize, eyeSize, eyeSize);
-                    } else if (direction.y === -1) { // up
-                        ctx.fillRect(x + eyeOffset, y + eyeOffset, eyeSize, eyeSize);
-                        ctx.fillRect(x + CELL_SIZE - eyeOffset - eyeSize, y + eyeOffset, eyeSize, eyeSize);
-                    } else { // down
-                        ctx.fillRect(x + eyeOffset, y + CELL_SIZE - eyeOffset - eyeSize, eyeSize, eyeSize);
-                        ctx.fillRect(x + CELL_SIZE - eyeOffset - eyeSize, y + CELL_SIZE - eyeOffset - eyeSize, eyeSize, eyeSize);
-                    }
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 20) {
+                    navbar.classList.add('nav-scrolled');
                 } else {
-                    // Body
-                    const intensity = Math.max(0.55, 1 - (index / snake.length) * 0.35);
-                    ctx.fillStyle = `rgb(0, ${Math.floor(220 * intensity)}, ${Math.floor(140 * intensity)})`;
-                    ctx.fillRect(x + 2, y + 2, CELL_SIZE - 4, CELL_SIZE - 4);
-                    
-                    // subtle shine
-                    ctx.fillStyle = 'rgba(255,255,255,0.15)';
-                    ctx.fillRect(x + 3, y + 3, CELL_SIZE - 10, 4);
+                    navbar.classList.remove('nav-scrolled');
                 }
             });
-
-            // Draw food (red heart style)
-            const foodX = food.x * CELL_SIZE + CELL_SIZE / 2;
-            const foodY = food.y * CELL_SIZE + CELL_SIZE / 2;
             
-            // Glow
-            ctx.fillStyle = 'rgba(255, 45, 85, 0.3)';
-            ctx.beginPath();
-            ctx.arc(foodX, foodY, CELL_SIZE / 2 + 4, 0, Math.PI * 2);
-            ctx.fill();
+            // Mobile menu
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
             
-            // Main food
-            ctx.fillStyle = '#ff2d55';
-            ctx.beginPath();
-            ctx.arc(foodX, foodY, CELL_SIZE / 2 - 3, 0, Math.PI * 2);
-            ctx.fill();
+            mobileBtn.addEventListener('click', () => {
+                if (mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.remove('hidden');
+                    mobileBtn.innerHTML = '<i class="fa-solid fa-times"></i>';
+                } else {
+                    closeMobileMenu();
+                }
+            });
             
-            // Inner highlight
-            ctx.fillStyle = '#ff6b8a';
-            ctx.beginPath();
-            ctx.arc(foodX - 3, foodY - 3, 4, 0, Math.PI * 2);
-            ctx.fill();
+            // Close mobile on link click
+            document.querySelectorAll('.mobile-link').forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
+            });
         }
-
-        function moveSnake() {
-            if (!isRunning || isPaused) return;
-
-            direction = { ...nextDirection };
-
-            const head = { ...snake[0] };
-            head.x += direction.x;
-            head.y += direction.y;
-
-            // Wall collision
-            if (head.x < 0 || head.x >= GRID_SIZE || head.y < 0 || head.y >= GRID_SIZE) {
-                endGame();
-                return;
+        
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            mobileMenu.classList.add('hidden');
+            mobileBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+        }
+        
+        // Product data
+        const products = [
+            {
+                id: 0,
+                title: "Vajilla de Porcelana",
+                category: "VAJILLA",
+                price: "Desde S/ 18 por cubierto",
+                image: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=1200&q=80",
+                description: "Nuestra colección más solicitada. Porcelana de alta calidad en acabado marfil, con opciones en borde dorado y diseños contemporáneos. Perfecta tanto para bodas clásicas como para eventos modernos.",
+                includes: ["Plato de entrada, principal y postre", "Plato de pan y mantequilla", "Taza y platillo para café/té", "Sets para 6, 8, 10 o 12 personas", "Reposición garantizada durante el evento"]
+            },
+            {
+                id: 1,
+                title: "Cristalería Premium",
+                category: "CRISTALERÍA",
+                price: "Desde S/ 6.50 por unidad",
+                image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=1200&q=80",
+                description: "Copas de cristal de alta claridad y resistencia. Disponibles en múltiples formas para vino tinto, blanco, champagne, cócteles y agua. Colecciones clásicas y modernas para complementar cualquier estilo de mesa.",
+                includes: ["Copa de vino tinto y blanco", "Copa de champagne flauta", "Copa de agua y cóctel", "Vasos bajos y altos", "Cristalería de repuesto incluida"]
+            },
+            {
+                id: 2,
+                title: "Cubertería de Lujo",
+                category: "CUBERTERÍA",
+                price: "Desde S/ 9 por cubierto",
+                image: "https://images.unsplash.com/photo-1590736969955-71cc94901144?w=1200&q=80",
+                description: "Cubertería de acero inoxidable 18/10 con acabado satinado o dorado. Incluye piezas de servicio y postre. Disponible en sets completos para cada invitado más piezas de presentación.",
+                includes: ["Cuchillo, tenedor y cuchara de mesa", "Cubertería de postre", "Cuchara y tenedor de ensalada", "Cuchillo de mantequilla", "Piezas de servicio (cucharón, tenazas, etc.)"]
+            },
+            {
+                id: 3,
+                title: "Mantelería & Textiles",
+                category: "TEXTILES",
+                price: "Desde S/ 28 por mantel",
+                image: "https://images.unsplash.com/photo-1617806118233-18e1de247200?w=1200&q=80",
+                description: "Manteles y servilletas de lino premium, algodón egipcio y mezclas de alta gama. Colores neutros clásicos, tonos tierra y opciones de temporada. Lavados y planchados profesionalmente.",
+                includes: ["Mantel rectangular o redondo", "Servilletas de tela a juego", "Caminos de mesa y runners", "Faldas para mesa de buffet", "Protectores y bases"]
+            },
+            {
+                id: 4,
+                title: "Decoración & Centros de Mesa",
+                category: "DECORACIÓN",
+                price: "Cotización personalizada",
+                image: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=1200&q=80",
+                description: "Creamos la ambientación completa de tu mesa. Candelabros, jarrones, espejos de base, arreglos florales secos y frescos, y piezas decorativas únicas que elevan la experiencia visual de cada invitado.",
+                includes: ["Centros de mesa principales", "Arreglos florales secos y frescos", "Candelabros y velas", "Espejos y bases decorativas", "Elementos temáticos según estilo"]
+            },
+            {
+                id: 5,
+                title: "Buffet & Servicio",
+                category: "BUFFET",
+                price: "Desde S/ 1,800 por paquete",
+                image: "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1200&q=80",
+                description: "Todo el equipamiento necesario para un servicio de buffet elegante y funcional. Samovares, porta pirex, bandejas calentadoras, fuentes y accesorios de presentación profesional.",
+                includes: ["Samovares eléctricos y tradicionales", "Porta pirex y bandejas calentadoras", "Fuentes y platos de presentación", "Utensilios de servicio", "Carritos y estaciones de buffet"]
+            },
+            {
+                id: 6,
+                title: "Mobiliario Complementario",
+                category: "MOBILIARIO",
+                price: "Cotización por pieza",
+                image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&q=80",
+                description: "Mesas de diferentes tamaños, sillas Tiffany y Chiavari, lounge sets y piezas especiales. Ideal cuando necesitas completar el venue o crear zonas diferenciadas en tu evento.",
+                includes: ["Mesas rectangulares y redondas", "Sillas Tiffany / Chiavari", "Muebles lounge y cóctel", "Bares y estaciones", "Sillas y mesas infantiles"]
+            },
+            {
+                id: 7,
+                title: "Paquetes Completos",
+                category: "PAQUETES",
+                price: "Desde S/ 3,200 (30 personas)",
+                image: "https://images.unsplash.com/photo-1555244162-803834f70033?w=1200&q=80",
+                description: "Nuestra opción más popular. Incluye todo lo necesario para tu número de invitados: vajilla completa, cristalería, cubertería, mantelería básica y decoración esencial. Montaje y retiro profesional incluido.",
+                includes: ["Todo el menaje por invitado", "Mantelería básica", "Decoración de mesa esencial", "Montaje y desmontaje", "Asesoría y coordinación"]
             }
-
-            // Self collision
-            if (snake.some((segment, i) => i > 0 && segment.x === head.x && segment.y === head.y)) {
-                endGame();
-                return;
-            }
-
-            snake.unshift(head);
-
-            // Eat food?
-            if (head.x === food.x && head.y === food.y) {
-                score += 10;
-                updateScore();
+        ];
+        
+        let currentProduct = null;
+        
+        function openProductModal(index) {
+            const product = products[index];
+            currentProduct = product;
+            
+            document.getElementById('modal-image').style.backgroundImage = `url('${product.image}')`;
+            document.getElementById('modal-title').textContent = product.title;
+            document.getElementById('modal-category').textContent = product.category;
+            document.getElementById('modal-price').textContent = product.price;
+            document.getElementById('modal-description').textContent = product.description;
+            
+            const includesList = document.getElementById('modal-includes');
+            includesList.innerHTML = '';
+            product.includes.forEach(item => {
+                const li = document.createElement('li');
+                li.className = 'flex items-start gap-x-2';
+                li.innerHTML = `<i class="fa-solid fa-check text-[#B8975E] mt-1 text-sm"></i> <span>${item}</span>`;
+                includesList.appendChild(li);
+            });
+            
+            document.getElementById('product-modal').classList.remove('hidden');
+            document.getElementById('product-modal').classList.add('flex');
+        }
+        
+        function closeProductModal() {
+            const modal = document.getElementById('product-modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+        
+        function addToQuoteFromModal() {
+            closeProductModal();
+            openQuoteModal();
+            
+            // Pre-select the product type in the modal form if possible
+            setTimeout(() => {
+                const tipo = document.getElementById('m-tipo');
+                if (tipo && currentProduct) {
+                    // Try to match
+                    const title = currentProduct.title.toLowerCase();
+                    if (title.includes('boda') || title.includes('vajilla')) tipo.value = 'Boda / Matrimonio';
+                    else if (title.includes('corpor')) tipo.value = 'Evento Corporativo';
+                    else if (title.includes('cumple') || title.includes('buffet')) tipo.value = 'Cumpleaños / Aniversario';
+                }
+            }, 400);
+        }
+        
+        function openQuoteModal() {
+            document.getElementById('quote-modal').classList.remove('hidden');
+            document.getElementById('quote-modal').classList.add('flex');
+        }
+        
+        function closeQuoteModal() {
+            const modal = document.getElementById('quote-modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+        
+        function handleQuoteSubmit(e) {
+            e.preventDefault();
+            
+            const form = e.target;
+            const data = {
+                nombre: document.getElementById('nombre').value,
+                telefono: document.getElementById('telefono').value,
+                email: document.getElementById('email').value,
+                tipo: document.getElementById('tipo-evento').value,
+                fecha: document.getElementById('fecha').value,
+                invitados: document.getElementById('invitados').value,
+                presupuesto: document.getElementById('presupuesto').value,
+                mensaje: document.getElementById('mensaje').value
+            };
+            
+            // Simulate sending
+            showSuccessAndWhatsApp(data);
+            form.reset();
+        }
+        
+        function handleModalQuoteSubmit(e) {
+            e.preventDefault();
+            
+            const data = {
+                nombre: document.getElementById('m-nombre').value,
+                telefono: document.getElementById('m-telefono').value,
+                email: document.getElementById('m-email').value,
+                tipo: document.getElementById('m-tipo').value,
+                fecha: document.getElementById('m-fecha').value,
+                invitados: document.getElementById('m-invitados').value,
+                mensaje: document.getElementById('m-mensaje').value
+            };
+            
+            closeQuoteModal();
+            showSuccessAndWhatsApp(data);
+            
+            // reset modal form
+            e.target.reset();
+        }
+        
+        function showSuccessAndWhatsApp(data) {
+            // Show toast
+            const toast = document.getElementById('success-toast');
+            toast.classList.remove('hidden');
+            toast.classList.add('flex');
+            
+            setTimeout(() => {
+                toast.classList.remove('flex');
+                toast.classList.add('hidden');
+            }, 5200);
+            
+            // Open WhatsApp with prefilled message after a small delay
+            setTimeout(() => {
+                const message = `Hola J&E Menaje Perú,%0A%0AMi nombre es ${encodeURIComponent(data.nombre)}.%0A` +
+                    `Evento: ${encodeURIComponent(data.tipo || 'Por definir')}%0A` +
+                    `Fecha aproximada: ${encodeURIComponent(data.fecha || 'Por definir')}%0A` +
+                    `Invitados: ${encodeURIComponent(data.invitados || 'Por definir')}%0A` +
+                    `Teléfono: ${encodeURIComponent(data.telefono)}%0A` +
+                    `${data.mensaje ? 'Detalles: ' + encodeURIComponent(data.mensaje) : ''}%0A%0AGracias.`;
                 
-                // Increase speed every 5 apples
-                if (score % 50 === 0 && gameSpeed > 60) {
-                    gameSpeed -= 18;
-                    restartGameLoop();
+                const whatsappUrl = `https://wa.me/51922605137?text=${message}`;
+                window.open(whatsappUrl, '_blank');
+            }, 1650);
+        }
+        
+        function initForms() {
+            // Any additional form enhancements can go here
+        }
+        
+        function initGallery() {
+            // Optional: lightbox could be added here, but current hover is elegant enough
+        }
+        
+        function initSmoothAnchors() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        e.preventDefault();
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        
+                        // close mobile if open
+                        const mobileMenu = document.getElementById('mobile-menu');
+                        if (!mobileMenu.classList.contains('hidden')) {
+                            closeMobileMenu();
+                        }
+                    }
+                });
+            });
+        }
+        
+        function initKeyboard() {
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    const productModal = document.getElementById('product-modal');
+                    const quoteModal = document.getElementById('quote-modal');
+                    
+                    if (!productModal.classList.contains('hidden') && productModal.classList.contains('flex')) {
+                        closeProductModal();
+                    } else if (!quoteModal.classList.contains('hidden') && quoteModal.classList.contains('flex')) {
+                        closeQuoteModal();
+                    }
                 }
                 
-                placeFood();
-            } else {
-                snake.pop();
-            }
-        }
-
-        function gameLoop() {
-            const now = Date.now();
-            
-            if (now - lastMoveTime >= gameSpeed) {
-                moveSnake();
-                draw();
-                lastMoveTime = now;
-            }
-            
-            if (isRunning && !isPaused) {
-                requestAnimationFrame(gameLoop);
-            }
-        }
-
-        function startGameLoop() {
-            lastMoveTime = Date.now();
-            isRunning = true;
-            isPaused = false;
-            requestAnimationFrame(gameLoop);
-        }
-
-        function restartGameLoop() {
-            // speed change handled inside gameLoop
-        }
-
-        function startGame() {
-            startOverlay.classList.add('hidden');
-            gameoverOverlay.classList.add('hidden');
-            
-            resetGame();
-            draw();
-            startGameLoop();
-        }
-
-        function endGame() {
-            isRunning = false;
-            
-            const isNewRecord = score > highScore;
-            if (isNewRecord) {
-                highScore = score;
-                localStorage.setItem('snakeHighScore', highScore.toString());
-                highscoreEl.textContent = highScore.toString().padStart(3, '0');
-                newRecordEl.style.display = 'block';
-            } else {
-                newRecordEl.style.display = 'none';
-            }
-            
-            finalScoreEl.textContent = score.toString().padStart(3, '0');
-            gameoverOverlay.classList.remove('hidden');
-        }
-
-        function restartGame() {
-            gameoverOverlay.classList.add('hidden');
-            resetGame();
-            draw();
-            startGameLoop();
-        }
-
-        function togglePause() {
-            if (!isRunning) return;
-            
-            isPaused = !isPaused;
-            
-            if (!isPaused) {
-                lastMoveTime = Date.now();
-                requestAnimationFrame(gameLoop);
-            }
-        }
-
-        function handleKeydown(e) {
-            if (!isRunning && !startOverlay.classList.contains('hidden')) {
-                if (e.key === ' ' || e.key === 'Enter') {
+                if (e.key.toLowerCase() === 'q' && document.activeElement.tagName === 'BODY') {
                     e.preventDefault();
-                    startGame();
-                }
-                return;
-            }
-
-            if (!isRunning) return;
-
-            switch (e.key.toLowerCase()) {
-                case 'arrowup':
-                case 'w':
-                    if (direction.y !== 1) nextDirection = { x: 0, y: -1 };
-                    e.preventDefault();
-                    break;
-                case 'arrowdown':
-                case 's':
-                    if (direction.y !== -1) nextDirection = { x: 0, y: 1 };
-                    e.preventDefault();
-                    break;
-                case 'arrowleft':
-                case 'a':
-                    if (direction.x !== 1) nextDirection = { x: -1, y: 0 };
-                    e.preventDefault();
-                    break;
-                case 'arrowright':
-                case 'd':
-                    if (direction.x !== -1) nextDirection = { x: 1, y: 0 };
-                    e.preventDefault();
-                    break;
-                case 'p':
-                    togglePause();
-                    e.preventDefault();
-                    break;
-                case 'r':
-                    if (gameoverOverlay.classList.contains('hidden')) {
-                        resetGame();
-                        draw();
+                    const quoteModal = document.getElementById('quote-modal');
+                    if (quoteModal.classList.contains('hidden')) {
+                        openQuoteModal();
                     } else {
-                        restartGame();
+                        closeQuoteModal();
                     }
-                    e.preventDefault();
-                    break;
-                case ' ':
-                    if (gameoverOverlay.classList.contains('hidden')) {
-                        togglePause();
-                    }
-                    e.preventDefault();
-                    break;
+                }
+            });
+            
+            // Easter egg: click logo to scroll top nicely
+            const logo = document.querySelector('nav .flex.items-center');
+            if (logo) {
+                logo.style.cursor = 'pointer';
+                logo.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
             }
         }
-
+        
         function init() {
-            canvas.width = CANVAS_SIZE;
-            canvas.height = CANVAS_SIZE;
+            initTailwind();
+            initNavbar();
+            initForms();
+            initGallery();
+            initSmoothAnchors();
+            initKeyboard();
             
-            initHighScore();
-            
-            // Initial state - show start screen
-            resetGame();
-            draw();
-            
-            // Keyboard
-            document.addEventListener('keydown', handleKeydown);
-            
-            // Touch support (swipe)
-            let touchStartX = 0;
-            let touchStartY = 0;
-            
-            canvas.addEventListener('touchstart', (e) => {
-                if (!isRunning) {
-                    startGame();
-                    return;
-                }
-                touchStartX = e.changedTouches[0].screenX;
-                touchStartY = e.changedTouches[0].screenY;
-            }, { passive: true });
-            
-            canvas.addEventListener('touchend', (e) => {
-                if (!isRunning || isPaused) return;
-                
-                const touchEndX = e.changedTouches[0].screenX;
-                const touchEndY = e.changedTouches[0].screenY;
-                
-                const dx = touchEndX - touchStartX;
-                const dy = touchEndY - touchStartY;
-                
-                if (Math.abs(dx) > Math.abs(dy)) {
-                    if (dx > 30 && direction.x !== -1) nextDirection = { x: 1, y: 0 };
-                    else if (dx < -30 && direction.x !== 1) nextDirection = { x: -1, y: 0 };
-                } else {
-                    if (dy > 30 && direction.y !== -1) nextDirection = { x: 0, y: 1 };
-                    else if (dy < -30 && direction.y !== 1) nextDirection = { x: 0, y: -1 };
-                }
-            }, { passive: true });
-
-            canvas.addEventListener('click', () => {
-                if (startOverlay.classList.contains('hidden') && gameoverOverlay.classList.contains('hidden')) {
-                    togglePause();
-                } else if (!startOverlay.classList.contains('hidden')) {
-                    startGame();
-                }
+            // Preload a couple hero-ish images (subtle)
+            const preloadImages = [
+                'https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&q=60'
+            ];
+            preloadImages.forEach(src => {
+                const img = new Image();
+                img.src = src;
             });
             
-            // Click header for hearts easter egg
-            document.querySelector('.header').addEventListener('click', () => {
-                const h = document.createElement('div');
-                h.textContent = '❤️';
-                h.style.position = 'fixed';
-                h.style.left = Math.random() * window.innerWidth + 'px';
-                h.style.top = '50px';
-                h.style.fontSize = '20px';
-                h.style.transition = 'transform 1.3s ease, opacity 1.3s ease';
-                h.style.zIndex = '999';
-                document.body.appendChild(h);
-                
-                setTimeout(() => {
-                    h.style.transform = `translateY(-${90 + Math.random()*70}px)`;
-                    h.style.opacity = '0';
-                }, 20);
-                
-                setTimeout(() => h.remove(), 1500);
-            });
+            // Make sure mobile menu starts closed
+            document.getElementById('mobile-menu').classList.add('hidden');
+            
+            // Accessibility: announce ready (optional)
+            console.log('%c[J&E Menaje Perú] Professional site initialized.', 'color:#8A7E70');
         }
-
-        // Boot the game
+        
+        // Boot
         window.onload = init;
     </script>
 </body>

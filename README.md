@@ -1,46 +1,77 @@
-# miamor
+# J & E Menaje Perú
 
-**te quiero** ❤️
+**Sitio web profesional** para alquiler de menaje premium para todo tipo de eventos en Perú.
 
----
+![J & E Menaje Perú](https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1200&q=80)
 
-## 🐍 Snake
+## El proyecto
 
-¡Juego clásico de Snake creado para este repo!
+Este repositorio contiene el sitio web oficial de **J & E Menaje Perú**, una empresa especializada en el alquiler de vajilla de porcelana, cristalería, cubertería, mantelería y decoración de alta gama para:
 
-### Versión recomendada (fácil y bonita)
-Abre el archivo **`snake.html`** directamente en tu navegador (doble clic).  
-No necesita instalación. Funciona offline.
+- Bodas y matrimonios
+- Eventos corporativos
+- Cumpleaños y celebraciones privadas
+- Reuniones familiares
+- Eventos en Lima y principales ciudades del Perú
 
-**Controles:**
-- Flechas del teclado o **W A S D**
-- **P** → Pausa
-- **R** → Reiniciar (en pantalla de Game Over)
-- Clic en el canvas también pausa/reanuda
+## Características del sitio
 
-La velocidad aumenta cada 5 manzanas. Tu récord se guarda en el navegador.
+- Diseño elegante y profesional con paleta cálida (crema, oro y carbón)
+- Completamente responsive (móvil, tablet y desktop)
+- Navegación fluida + menú móvil
+- Catálogo interactivo con modales de producto
+- Formulario de cotización profesional (con integración a WhatsApp)
+- Galería de eventos reales
+- Botón flotante de WhatsApp
+- Optimizado para SEO y compartir en redes
 
-### Versión Terminal (Python)
+## Stack
+
+- HTML5 + Tailwind CSS (CDN)
+- JavaScript vanilla (sin dependencias)
+- Font Awesome 6 para iconografía
+
+## Desarrollo local
+
+Abre `index.html` directamente en tu navegador.
+
 ```bash
-python snake.py
+# Opción recomendada
+start index.html          # Windows
+open index.html           # macOS
+xdg-open index.html       # Linux
 ```
 
-**Controles (terminal):**
-- Flechas o **W A S D** → mover
-- **P** → pausar
-- **R** → reiniciar (en Game Over)
-- **Q** o **ESC** → salir
+O sirve con cualquier servidor estático:
 
-Funciona en Windows (PowerShell/CMD) y Linux/macOS.
+```bash
+npx serve .
+# o
+python -m http.server 8000
+```
 
-### Archivos del juego
-- `snake.html` — Versión web (autocontenida)
-- `snake.py` — Versión terminal pura (sin dependencias)
+## Estructura
+
+- `index.html` — Sitio completo (todo en un solo archivo para despliegue simple)
+- Archivos antiguos del repo (snake, etc.) se mantienen por historial
+
+## Contacto del negocio
+
+- **WhatsApp / Teléfono**: +51 922 605 137
+- **Email**: hola@jemenajeperu.com
+- **Ubicación**: Lima, Perú (atendemos a nivel nacional)
+
+## Próximos pasos sugeridos (para producción)
+
+- Conectar el formulario a un servicio real (Formspree, EmailJS, Netlify Forms, etc.)
+- Agregar un sistema de reservas / calendario
+- Optimizar y alojar imágenes en CDN propio
+- Añadir Google Analytics + Meta Pixel
+- Versión multi-idioma (si se expande)
+- Integración con Instagram feed
 
 ---
 
-## Mensaje original
-te amo cinthya
+Hecho con atención al detalle para reflejar la calidad premium de J & E Menaje Perú.
 
-> *Este repo empezó siendo un mensajito de amor... y ahora también tiene un jueguito para pasar el rato juntos.* 💕
-
+© 2026 J & E Menaje Perú
